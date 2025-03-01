@@ -6,7 +6,7 @@ const Navbar = () => {
       <nav className='flex justify-between mx-auto container items-center p-3'>
        
             <div className='text-3xl '>
-              <a href="/posts" className='hover:text-blue-500 transition-all duration-300'>求人検索アプリ</a>
+              <a href="/posts" className='hover:text-blue-500 transition-all duration-300'>面接管理アプリ</a>
             </div>
 
     
