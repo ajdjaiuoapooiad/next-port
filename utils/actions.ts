@@ -14,8 +14,8 @@ export const post = async ({title, description}: z.infer<typeof formSchema>) => 
             description,
         },
     })
-    revalidatePath('/')
-    redirect('/')
+    revalidatePath('/posts')
+    redirect('/posts')
 }
 
 
