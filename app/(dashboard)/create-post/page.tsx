@@ -34,29 +34,17 @@ const CreatePost = () => {
   }
 
   return (
-    <div>
+    <div className="px-10 py-10">
+      <h1 className="text-2xl font-bold pb-5">CreatePage</h1>
       <Form {...form}  >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel className="font-bold">Title</FormLabel>
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
@@ -70,7 +58,7 @@ const CreatePost = () => {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel className="font-bold">Description</FormLabel>
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
