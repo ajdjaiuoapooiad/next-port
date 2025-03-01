@@ -17,8 +17,8 @@ const PostsList = async () => {
           {jobs.map((post) => {
             return (
               <div key={post.id} className='border p-4 my-4 mx-3 col-span-1'>
-                <h1>{post.title}</h1>
-                <p>{post.description}</p>
+                <h1 className='font-bold'>{post.title}</h1>
+                <p>Status:{post.description}</p>
               </div>
             )
           })}
