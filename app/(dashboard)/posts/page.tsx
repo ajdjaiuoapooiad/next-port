@@ -16,7 +16,7 @@ const PostsList = async () => {
         <div className='grid grid-cols-3 '>
           {jobs.map((post) => {
             return (
-              <div key={post.id} className='border p-4 my-4 mx-3 col-span-1'>
+              <div key={post.id} className='border p-4 my-4 mx-3 col-span-1 hover:shadow-xl'>
                 <h1 className='font-bold'>{post.title}</h1>
                 <p>Status:{post.description}</p>
               </div>
