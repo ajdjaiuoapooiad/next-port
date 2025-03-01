@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { post } from "@/utils/actions"
+import Sidebar from "@/components/Sidebar"
 
 
 export const formSchema = z.object({
@@ -39,7 +40,7 @@ const CreatePost = () => {
   return (
     <div className='grid grid-cols-5'>
       <div className='col-span-1'> 
-        <h1>Sidebar</h1>
+        <Sidebar />
       </div>
 
 

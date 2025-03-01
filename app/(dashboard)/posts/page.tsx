@@ -1,3 +1,4 @@
+import Sidebar from '@/components/Sidebar'
 import prisma from '@/utils/db'
 import React from 'react'
 
@@ -7,7 +8,7 @@ const PostsList = async () => {
   return (
     <div className='grid grid-cols-5'>
       <div className='col-span-1'> 
-        <h1>Sidebar</h1>
+        <Sidebar />
       </div>
 
       <div className='col-span-4'>
