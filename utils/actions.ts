@@ -4,7 +4,7 @@ import { z } from "zod"
 import prisma from "./db"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import { JobType } from "./type"
+import { CreateAndEditJobType, JobType } from "./type"
 
 
 
@@ -25,8 +25,8 @@ export async function getSingleJobAction(id: number): Promise<JobType | null> {
     let job: JobType | null = null;
     try {
       job = await prisma.jobs.findUnique({
-        where: {  
-          id: id,
+        where: {
+          id,
         },
       });
     } catch (error) {
@@ -38,3 +38,22 @@ export async function getSingleJobAction(id: number): Promise<JobType | null> {
     return job;
   }
 
+  export async function updateJobAction(
+    id: number,
+    values: CreateAndEditJobType
+  ): Promise<JobType | null> {
+  
+    try {
+      const job: JobType = await prisma.jobs.update({
+        where: {
+          id,
+        },
+        data: {
+          ...values,
+        },
+      });
+      return job;
+    } catch (error) {
+      return null;
+    }
+  }
