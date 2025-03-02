@@ -14,7 +14,7 @@ const Sidebar = () => {
                 <Button
                   asChild
                   key={link.href}
-                  
+                  className='hover:shadow-lg hover:bg-white hover:text-primary'
                 >
                   <Link href={link.href} className='flex items-center gap-x-2 '>
                     {link.icon} <span className='capitalize'>{link.label}</span>
