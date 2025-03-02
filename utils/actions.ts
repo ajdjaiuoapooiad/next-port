@@ -18,6 +18,9 @@ export const post = async ({title, description}: z.infer<typeof formSchema>) => 
     revalidatePath('/posts')
     redirect('/posts')
 }
+
+
+
 export async function getSingleJobAction(id: number): Promise<JobType | null> {
     let job: JobType | null = null;
     try {
@@ -27,7 +30,7 @@ export async function getSingleJobAction(id: number): Promise<JobType | null> {
         },
       });
     } catch (error) {
-      job = null;
+      alert('Error fetching job');
     }
     if (!job) {
       redirect('/posts');
