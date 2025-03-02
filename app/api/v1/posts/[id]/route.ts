@@ -5,11 +5,11 @@ import { NextResponse } from "next/server"
 
 export const GET = async (
     req: Request, 
-    {params}: {params: {id: string}}
+    {params}: {params: {id: number}}
 ) =>  {
     const id = params.id
     const post = await prisma.jobs.findUnique({
-        where: { id: parseInt(id) },
+        where: { id: Number(id) },
     })
     return NextResponse.json(post)
 }

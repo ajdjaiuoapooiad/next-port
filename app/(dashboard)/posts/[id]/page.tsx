@@ -15,26 +15,21 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 
-const DetailPage =  ({ params }: { params: { id: number } }) => {
+export async function getData(id: number) {
+  const res = await fetch(`http://localhost:3000/api/v1/posts/${id}`, {
+    cache: 'no-store'
+  })
+  const data: JobType = await res.json()
+  console.log(data);
 
+  return data;
 
-  // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        title: "",
-        description: "",
-      },
-    })
-   
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      const { title, description } = values
-      updateJobAction(params.id,{ title, description })
-      console.log(values)
-    }
+}
+
+const DetailPage = async ({ params }: { params: { id: number } }) => {
+  const post = await getData(params.id);
+  const {title, description} = post
+  console.log(post);
 
   return (
     <div className='grid grid-cols-5'>
@@ -45,40 +40,10 @@ const DetailPage =  ({ params }: { params: { id: number } }) => {
       <div className='col-span-4'>
         <h1>Detail Page</h1>
         {/* Add content here */}
-        <Form {...form}  >
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-bold">Title</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  
-                  <FormMessage/>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-bold">Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" >投稿</Button>
-          </form>
-        </Form>
+        <div  className='border p-4 my-4 mx-3 col-span-1 hover:shadow-xl'>
+          <h1 className='font-bold'>{title}</h1>
+          <p>Status:{description}</p>
+        </div>
       </div>
     </div>
   )
