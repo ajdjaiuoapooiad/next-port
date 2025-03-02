@@ -25,8 +25,8 @@ export async function getSingleJobAction(id: number): Promise<JobType | null> {
     let job: JobType | null = null;
     try {
       job = await prisma.jobs.findUnique({
-        where: {
-          id,
+        where: {  
+          id: id,
         },
       });
     } catch (error) {

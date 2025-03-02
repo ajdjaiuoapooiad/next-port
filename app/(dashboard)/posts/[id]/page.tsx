@@ -12,21 +12,24 @@ import { formSchema } from '../../create-post/page'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { getSingleJobAction } from '@/utils/actions'
+import EditJobForm from '@/components/EditJobForm'
 
 
 const DetailPage =  ({ params }: { params: { id: number } }) => {
-
-    useEffect(() => {
-        getSingleJobAction(Number(params.id))
-    }, [params.id])
-    const job = getSingleJobAction(Number(params.id))
-    console.log(job)
+    // 1. Define your form.
+    const job =  getSingleJobAction(Number(params.id))
+    if(job === null) {
+        alert("Error fetching job")
+    }
+    console.log(job.title)
+    console.log(job.description);
+    
 
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        title: job.title,
-        description: job.description,
+        title: '',
+        description: '',
       },
     })
     
@@ -46,40 +49,8 @@ const DetailPage =  ({ params }: { params: { id: number } }) => {
       <div className='col-span-4'>
         <h1>Detail Page</h1>
         {/* Add content here */}
-        <Form {...form}  >
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-bold">Title</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-bold">Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" >更新</Button>
-          </form>
-        </Form>
+        <EditJobForm />
+       
       </div>
     </div>
   )
