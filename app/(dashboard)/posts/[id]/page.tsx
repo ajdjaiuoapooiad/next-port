@@ -11,18 +11,15 @@ import { z } from 'zod'
 import { formSchema } from '../../create-post/page'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getJob } from '@/utils/actions'
+import { getData, getJob } from '@/utils/actions'
 
 
 
 const DetailPage = async ({ params }: { params: { id: number } }) => {
-  const post = await prisma.jobs.findUnique({
-    where: {
-      id: Number(params.id),
-    },  
-  })
-
+  const post = await getData(Number(params.id));
+  const {title, description} = post
   console.log(post);
+
 
 
   return (
@@ -35,8 +32,8 @@ const DetailPage = async ({ params }: { params: { id: number } }) => {
         <h1>Detail Page</h1>
         {/* Add content here */}
         <div  className='border p-4 my-4 mx-3 col-span-1 hover:shadow-xl'>
-          <h1 className='font-bold'>{post?.title}</h1>
-          <p>Status:{post?.description}</p>
+          <h1 className='font-bold'>{title}</h1>
+          <p>Status:{description}</p>
         </div>
       </div>
     </div>
