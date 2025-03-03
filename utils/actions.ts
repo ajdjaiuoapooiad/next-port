@@ -8,6 +8,7 @@ import { CreateAndEditJobType, JobType } from "./type"
 
 
 
+//Create機能
 export const post = async ({title, description}: z.infer<typeof formSchema>) => {
     await prisma.jobs.create({
         data: {
@@ -20,25 +21,8 @@ export const post = async ({title, description}: z.infer<typeof formSchema>) => 
 }
 
 
-
-export async function getSingleJobAction(id: number): Promise<JobType | null> {
-    let job: JobType | null = null;
-    try {
-      job = await prisma.jobs.findUnique({
-        where: {
-          id,
-        },
-      });
-    } catch (error) {
-      alert('Error fetching job');
-    }
-    if (!job) {
-      redirect('/posts');
-    }
-    return job;
-  }
-
-  export async function updateJobAction(
+//Update機能
+  export async function update(
     id: number,
     values: CreateAndEditJobType
   ): Promise<JobType | null> {
@@ -57,3 +41,25 @@ export async function getSingleJobAction(id: number): Promise<JobType | null> {
       return null;
     }
   }
+
+
+//Delete機能
+export async function deleteJob(id: number) {
+    await prisma.jobs.delete({
+        where: {
+            id,
+        },
+    })
+    revalidatePath('/posts')
+    redirect('/posts')
+}
+
+//Get機能
+export async function getJob(id: number) {
+    const job = await prisma.jobs.findUnique({
+        where: {
+            id,
+        },
+    })
+    return job
+}
